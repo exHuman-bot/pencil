@@ -17,6 +17,9 @@
     return String(n).padStart(2, '0');
   }
 
+  var countdownEl = document.getElementById('countdown');
+  if (countdownEl) countdownEl.classList.add('countdown--danger');
+
   function tick() {
     var diff = Math.max(0, target - Date.now());
     var day = Math.floor(diff / 86400000);

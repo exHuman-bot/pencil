@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Хочешь сыграть в игру? — стрим-квест artempencil</title>
-<meta name="description" content="Стрим-квест artempencil: загадки для Гриши расставлены по всему сайту. Смотрите трансляцию и следите за таймером до старта игры.">
+<meta name="description" content="Стрим-квест artempencil: загадки для Артёма расставлены по всему сайту. Смотрите трансляцию и следите за таймером до старта игры.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,8 +13,16 @@
 <body>
 
 <header class="hero">
+  <div class="hero__vignette" aria-hidden="true"></div>
   <div class="hero__noise" aria-hidden="true"></div>
   <div class="hero__diagonals" aria-hidden="true"></div>
+
+  <div class="tape tape--top" aria-hidden="true">
+    <div class="tape__track">
+      <span>ИГРА НАЧАЛАСЬ ✕ ПУТИ НАЗАД НЕТ ✕ ИГРА НАЧАЛАСЬ ✕ ПУТИ НАЗАД НЕТ ✕ </span>
+      <span>ИГРА НАЧАЛАСЬ ✕ ПУТИ НАЗАД НЕТ ✕ ИГРА НАЧАЛАСЬ ✕ ПУТИ НАЗАД НЕТ ✕ </span>
+    </div>
+  </div>
 
   <div class="hero__content">
     <p class="eyebrow">
@@ -23,10 +31,10 @@
       <span class="eyebrow__line" aria-hidden="true"></span>
     </p>
 
-    <h1 class="hero__title">Хочешь<br>сыграть в игру?</h1>
+    <h1 class="hero__title glitch" data-text="Хочешь сыграть в игру?"><br>сыграть в игру?</h1>
 
     <p class="hero__lead">
-      Гриша весит 120 кило, лысый наголо и молится бегемоту. Загадки для него уже
+      Артём весит 120 кило, лысый наголо и молится бегемоту. Загадки для него уже
       расставлены по всему сайту — вы наблюдаете, а решать придётся ему.
       Справится или окажется на дне пруда?
     </p>
@@ -34,6 +42,12 @@
     <div class="hero__actions">
       <a class="btn" href="https://www.twitch.tv/artempencil" target="_blank" rel="noopener">Смотреть, как он играет</a>
     </div>
+
+    <ul class="rules-strip">
+      <li class="rules-strip__item"><span class="rules-strip__num">01</span>Ловушки расставляют зрители</li>
+      <li class="rules-strip__item"><span class="rules-strip__num">02</span>Решает только Артём</li>
+      <li class="rules-strip__item"><span class="rules-strip__num">03</span>Таймер не останавливается</li>
+    </ul>
 
     <div class="countdown" id="countdown" aria-label="Обратный отсчёт до старта игры">
       <div class="countdown__item">
@@ -54,6 +68,18 @@
       </div>
     </div>
     <p class="countdown__caption">до старта игры</p>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="scroll-cue__line"></span>
+    <span class="scroll-cue__text">листай</span>
+  </div>
+
+  <div class="tape tape--bottom" aria-hidden="true">
+    <div class="tape__track">
+      <span>ХОЧЕШЬ СЫГРАТЬ В ИГРУ ✕ ХОЧЕШЬ СЫГРАТЬ В ИГРУ ✕ ХОЧЕШЬ СЫГРАТЬ В ИГРУ ✕ </span>
+      <span>ХОЧЕШЬ СЫГРАТЬ В ИГРУ ✕ ХОЧЕШЬ СЫГРАТЬ В ИГРУ ✕ ХОЧЕШЬ СЫГРАТЬ В ИГРУ ✕ </span>
+    </div>
   </div>
 </header>
 
@@ -92,6 +118,8 @@
     </div>
   </section>
 
+  <div class="divider" role="separator" aria-hidden="true"><span class="divider__dot"></span></div>
+
   <section class="quotes" aria-labelledby="quotes-title">
     <p id="quotes-title" class="eyebrow eyebrow--center">Голос бегемота</p>
     <ul class="quotes__list">
@@ -101,6 +129,8 @@
       <li class="quotes__item">«Ты можешь молчать сколько угодно. Таймер за тебя не молчит.»</li>
     </ul>
   </section>
+
+  <div class="divider" role="separator" aria-hidden="true"><span class="divider__dot"></span></div>
 
   <section class="prize" aria-labelledby="prize-title">
     <p id="prize-title" class="eyebrow eyebrow--center">Финальный экран</p>
