@@ -63,11 +63,6 @@ img { display: block; max-width: 100%; }
   to { transform: rotate(360deg); }
 }
 
-@keyframes tape-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
 @keyframes glitch-1 {
   0%, 92%, 100% { clip-path: inset(0 0 0 0); transform: translate(0, 0); }
   93% { clip-path: inset(10% 0 60% 0); transform: translate(-3px, 1px); }
@@ -194,39 +189,6 @@ img { display: block; max-width: 100%; }
   z-index: 1;
   pointer-events: none;
   background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, oklch(0 0 0 / 0.55) 100%);
-}
-
-/* — warning tape — */
-.tape {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 34px;
-  overflow: hidden;
-  z-index: 3;
-  background: repeating-linear-gradient(
-    -45deg,
-    var(--color-accent) 0px, var(--color-accent) 22px,
-    oklch(0.1 0.01 40) 22px, oklch(0.1 0.01 40) 44px
-  );
-  box-shadow: 0 0 20px oklch(0 0 0 / 0.5);
-}
-.tape--top { top: 0; }
-.tape--bottom { bottom: 0; }
-
-.tape__track {
-  display: flex;
-  width: max-content;
-  height: 100%;
-  align-items: center;
-  white-space: nowrap;
-  animation: tape-scroll 22s linear infinite;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  color: oklch(0.98 0 0);
-  text-shadow: 0 1px 2px oklch(0 0 0 / 0.4);
 }
 
 .hero__content {
@@ -496,6 +458,229 @@ img { display: block; max-width: 100%; }
 }
 
 .trap-nav { margin-top: 32px; }
+
+/* — music toggle — */
+.music-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 70;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-faint);
+  cursor: pointer;
+  box-shadow: 0 6px 18px oklch(0 0 0 / 0.4);
+  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.music-toggle:hover { border-color: var(--color-accent); color: var(--color-text); }
+
+.music-toggle--on {
+  color: var(--color-accent-hover);
+  border-color: var(--color-accent);
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+
+@media (max-width: 760px) {
+  .music-toggle { bottom: 14px; right: 14px; width: 42px; height: 42px; }
+}
+
+/* — global quest timer badge — */
+.global-timer {
+  position: fixed;
+  top: 46px;
+  right: 16px;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: color-mix(in oklch, var(--color-surface) 85%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 6px 18px oklch(0 0 0 / 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.global-timer__label {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.global-timer__value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-accent);
+  min-width: 44px;
+}
+
+.global-timer--danger {
+  border-color: oklch(0.55 0.22 25);
+  animation: danger-pulse 1s ease-in-out infinite;
+}
+.global-timer--danger .global-timer__value {
+  color: oklch(0.65 0.24 25);
+  animation: danger-pulse-text 1s ease-in-out infinite;
+}
+
+@media (max-width: 760px) {
+  .global-timer { top: 40px; right: 10px; padding: 6px 10px; gap: 6px; }
+  .global-timer__label { font-size: 9px; }
+  .global-timer__value { font-size: 13px; min-width: 38px; }
+}
+
+/* — trap 3: multiple choice with penalty — */
+.trap-screen__progress {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.trap-choices {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.trap-choice {
+  width: 100%;
+  padding: 14px 12px;
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  text-align: left;
+  color: var(--color-text);
+  background: oklch(0.08 0.01 40);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+}
+
+.trap-choice:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.trap-choice:disabled {
+  cursor: default;
+  opacity: 0.5;
+  transform: none;
+}
+
+.trap-choice--wrong {
+  animation: shake 0.4s ease;
+  border-color: var(--color-accent);
+  background: color-mix(in oklch, var(--color-accent) 18%, oklch(0.08 0.01 40));
+}
+
+.trap-choice--correct {
+  border-color: oklch(0.6 0.15 145);
+  background: color-mix(in oklch, oklch(0.6 0.15 145) 18%, oklch(0.08 0.01 40));
+}
+
+/* — trap 4: anagram / cipher — */
+.cipher {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 26px;
+}
+
+.cipher__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 19px;
+  text-transform: uppercase;
+  color: var(--color-accent-hover);
+  background: oklch(0.08 0.01 40);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  animation: tile-drop 0.5s ease both;
+}
+
+@keyframes tile-drop {
+  0% { opacity: 0; transform: translateY(-14px) rotate(var(--tile-rot, 0deg)); }
+  100% { opacity: 1; transform: translateY(0) rotate(var(--tile-rot, 0deg)); }
+}
+
+.key-parts {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.key-parts__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  text-transform: uppercase;
+  color: var(--color-accent-hover);
+  background: oklch(0.08 0.01 40);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.key-parts__tile--missing {
+  color: var(--color-text-faint);
+  border-style: dashed;
+}
+
+/* — trap 5: final countdown — */
+.trap-timer {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 22px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 9vw, 64px);
+  color: var(--color-accent);
+  animation: danger-pulse-text 1s ease-in-out infinite;
+}
+
+.trap-screen--fail {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 6px oklch(0.08 0.008 40), 0 0 30px 4px color-mix(in oklch, var(--color-accent) 55%, transparent);
+}
+.trap-screen--fail .trap-timer { animation: none; opacity: 0.4; }
+.trap-screen--fail .trap-screen__feedback { color: var(--color-accent-hover); }
 
 .link-ghost {
   font-size: 13px;

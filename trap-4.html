@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ловушка №1 — стрим-квест artempencil</title>
-<meta name="description" content="Первая ловушка стрим-квеста artempencil. Разгадай загадку бегемота, чтобы идти дальше.">
+<title>Ловушка №4 — стрим-квест artempencil</title>
+<meta name="description" content="Четвёртая ловушка стрим-квеста artempencil. Собери рассыпанное слово бегемота.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,21 +20,32 @@
   <div class="hero__content trap">
     <p class="eyebrow">
       <span class="eyebrow__line" aria-hidden="true"></span>
-      Ловушка № 1
+      Ловушка № 4
       <span class="eyebrow__line" aria-hidden="true"></span>
     </p>
 
-    <h1 class="hero__title glitch trap__title" data-text="Загадка бегемота">Загадка<br>бегемота</h1>
+    <h1 class="hero__title glitch trap__title" data-text="Рассыпанное слово">Рассыпанное<br>слово</h1>
 
     <p class="hero__lead trap__intro">
-      Артём, бегемот говорит редко. Но если начал — слушай внимательно.
-      Он не отдаст следующий шаг тем, кто не смог его услышать.
+      Пила прошлась по слову бегемота и раскидала буквы. Собери их обратно —
+      имя того, кому ты молишься, ничем не заменить.
     </p>
 
     <div class="trap-screen" id="trap-screen">
       <span class="screen__scanlines" aria-hidden="true"></span>
+
+      <ul class="cipher" id="cipher" aria-hidden="true">
+        <li class="cipher__tile" style="--tile-rot:-6deg; animation-delay:0.02s">Т</li>
+        <li class="cipher__tile" style="--tile-rot:4deg; animation-delay:0.08s">Е</li>
+        <li class="cipher__tile" style="--tile-rot:-3deg; animation-delay:0.14s">Г</li>
+        <li class="cipher__tile" style="--tile-rot:7deg; animation-delay:0.2s">О</li>
+        <li class="cipher__tile" style="--tile-rot:-5deg; animation-delay:0.26s">Б</li>
+        <li class="cipher__tile" style="--tile-rot:5deg; animation-delay:0.32s">Е</li>
+        <li class="cipher__tile" style="--tile-rot:-4deg; animation-delay:0.38s">М</li>
+      </ul>
+
       <p class="trap-screen__riddle">
-        «Как зовут твою девушку?»
+        Впиши слово целиком, в правильном порядке.
       </p>
 
       <form class="trap-form" id="trap-form" autocomplete="off">
@@ -56,7 +67,7 @@
 
 <script src="game-timer.js"></script>
 <script src="key-collector.js"></script>
-<script src="trap-1.js"></script>
+<script src="trap-4.js"></script>
 <script src="music-player.js"></script>
 </body>
 </html>

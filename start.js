@@ -1,4 +1,8 @@
 (function () {
+  sessionStorage.removeItem('questDeadline');
+  sessionStorage.removeItem('questLost');
+  sessionStorage.removeItem('questKeyParts');
+
   var PHRASES = [
     'Пила не спрашивает. Она решает.',
     'Слышишь визг? Это не мотор. Это твой страх.',

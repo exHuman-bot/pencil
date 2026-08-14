@@ -1,7 +1,7 @@
 (function () {
-  var ANSWERS = ['катя', 'катюша', 'екатерина'];
-  var NEXT_PAGE = 'trap-2.html';
-  var KEY_FRAGMENT = 'СВО';
+  var ANSWERS = ['бегемот'];
+  var NEXT_PAGE = 'trap-5.html';
+  var KEY_FRAGMENT = 'А';
 
   var form = document.getElementById('trap-form');
   var input = document.getElementById('trap-answer');
@@ -25,8 +25,8 @@
 
     if (isCorrect) {
       screen.classList.add('trap-screen--correct');
-      if (window.QuestKey) window.QuestKey.addFragment('trap1', KEY_FRAGMENT);
-      feedback.textContent = 'Верно. Фрагмент ключа получен: «' + KEY_FRAGMENT + '». Переход дальше...';
+      if (window.QuestKey) window.QuestKey.addFragment('trap4', KEY_FRAGMENT);
+      feedback.textContent = 'Верно. Слово собрано. Фрагмент ключа: «' + KEY_FRAGMENT + '». Переход дальше...';
       form.querySelector('button').disabled = true;
       input.disabled = true;
       setTimeout(function () {
@@ -34,7 +34,7 @@
       }, 1200);
     } else {
       screen.classList.add('trap-screen--wrong');
-      feedback.textContent = 'Неверно. Бегемот ждёт другого ответа.';
+      feedback.textContent = 'Неверно. Буквы легли не так.';
       input.focus();
       input.select();
     }
