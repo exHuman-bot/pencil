@@ -1,167 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<title>Хочешь сыграть в игру? — стрим-квест artempencil</title>
+<meta name="description" content="Стрим-квест artempencil: загадки для Гриши расставлены по всему сайту. Смотрите трансляцию и следите за таймером до старта игры.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<x-dc>
-<helmet>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
-  <style>
-    body { margin: 0; background: oklch(0.14 0.012 40); }
-    ::selection { background: oklch(0.5 0.19 25); color: oklch(0.97 0.005 40); }
-    @keyframes flicker { 0%,100%{opacity:1} 45%{opacity:0.85} 50%{opacity:1} 78%{opacity:0.9} }
-    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
-    a { color: oklch(0.5 0.19 25); text-decoration: none; }
-    a:hover { color: oklch(0.75 0.16 45); }
-  </style>
-  <script src="./image-slot.js"></script>
-</helmet>
 
-<div style="font-family:'Work Sans',sans-serif; color:oklch(0.9 0.01 40); background:oklch(0.14 0.012 40); position:relative; overflow:hidden;">
+<header class="hero">
+  <div class="hero__noise" aria-hidden="true"></div>
+  <div class="hero__diagonals" aria-hidden="true"></div>
 
-  <div style="position:fixed; inset:0; pointer-events:none; z-index:50; opacity:0.05; background:repeating-linear-gradient(115deg, oklch(0.95 0 0) 0px, transparent 1px, transparent 3px);"></div>
+  <div class="hero__content">
+    <p class="eyebrow">
+      <span class="eyebrow__line" aria-hidden="true"></span>
+      Стрим-квест artempencil
+      <span class="eyebrow__line" aria-hidden="true"></span>
+    </p>
 
-  <!-- HERO -->
-  <section style="position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 24px; background:radial-gradient(ellipse 80% 60% at 50% 20%, oklch(0.22 0.03 30) 0%, oklch(0.14 0.012 40) 70%);">
-    <div style="position:absolute; inset:0; background:repeating-linear-gradient(135deg, oklch(0.2 0.01 40) 0px, oklch(0.2 0.01 40) 2px, transparent 2px, transparent 40px); opacity:0.3;"></div>
+    <h1 class="hero__title">Хочешь<br>сыграть в игру?</h1>
 
-    <div style="position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:28px; max-width:900px;">
-      <div style="display:flex; align-items:center; gap:14px; font-family:'Oswald',sans-serif; letter-spacing:0.35em; font-size:13px; color:oklch(0.5 0.19 25); text-transform:uppercase;">
-        <span style="width:28px; height:1px; background:oklch(0.5 0.19 25);"></span>
-        Стрим-квест artempencil
-        <span style="width:28px; height:1px; background:oklch(0.5 0.19 25);"></span>
-      </div>
+    <p class="hero__lead">
+      Гриша весит 120 кило, лысый наголо и молится бегемоту. Загадки для него уже
+      расставлены по всему сайту — вы наблюдаете, а решать придётся ему.
+      Справится или окажется на дне пруда?
+    </p>
 
-      <h1 style="font-family:'Oswald',sans-serif; font-weight:700; text-transform:uppercase; font-size:clamp(42px,8vw,96px); line-height:1.02; margin:0; letter-spacing:0.01em; animation:flicker 6s infinite;">
-        Хочешь<br/>сыграть в игру?
-      </h1>
-
-      <p style="font-family:'Work Sans',sans-serif; font-size:clamp(17px,2vw,22px); color:oklch(0.75 0.01 40); max-width:620px; margin:0; line-height:1.5;">
-        Гриша весит 120 кило, лысый наголо и молится бегемоту. Загадки для него уже расставлены по всему сайту — вы наблюдаете, а решать придётся ему. Справится или окажется на дне пруда?
-      </p>
-
-      <div style="display:flex; gap:16px; flex-wrap:wrap; justify-content:center; margin-top:8px;">
-        <a href="https://www.twitch.tv/artempencil" style="font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; font-size:15px; padding:16px 34px; background:oklch(0.5 0.19 25); color:oklch(0.12 0.01 40); border-radius:2px; box-shadow:0 0 0 1px oklch(0.3 0.02 40 / 0.4);">Смотреть, как он играет</a>
-      </div>
-
-      <!-- countdown -->
-      <div style="display:flex; gap:14px; margin-top:36px;">
-        <sc-for list="{{ countdownParts }}" as="part" hint-placeholder-count="4">
-          <div style="display:flex; flex-direction:column; align-items:center; gap:6px; min-width:76px; padding:14px 10px; background:oklch(0.19 0.015 40); border:1px solid oklch(0.3 0.02 40); border-radius:3px;">
-            <div style="font-family:'Oswald',sans-serif; font-size:32px; font-weight:600; color:oklch(0.5 0.19 25);">{{ part.value }}</div>
-            <div style="font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:oklch(0.6 0.01 40);">{{ part.label }}</div>
-          </div>
-        </sc-for>
-      </div>
-      <div style="font-size:13px; color:oklch(0.55 0.01 40); letter-spacing:0.05em;">до старта игры</div>
+    <div class="hero__actions">
+      <a class="btn" href="https://www.twitch.tv/artempencil" target="_blank" rel="noopener">Смотреть, как он играет</a>
     </div>
-  </section>
 
-  <!-- ABOUT STREAMER -->
-  <section style="padding:100px 24px; background:oklch(0.11 0.01 40);">
-    <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1.3fr; gap:56px; align-items:center;">
-      <div style="position:relative;">
-        <div style="width:100%; aspect-ratio:4/5; position:relative;">
-          <image-slot id="streamer-photo" shape="rounded" radius="4" placeholder="Фото/арт artempencil" src="uploads/pasted-1786715733786-0.png"></image-slot>
-          <svg viewBox="0 0 200 200" style="position:absolute; top:44%; left:16%; width:56px; height:56px; opacity:0.75; pointer-events:none; animation:spin 18s linear infinite; mix-blend-mode:screen;">
-            <path d="M100.0,100.0 L100.6,100.1 L101.2,100.4 L101.8,100.8 L102.2,101.4 L102.4,102.1 L102.5,102.9 L102.4,103.8 L102.1,104.7 L101.6,105.6 L100.9,106.4 L99.9,107.1 L98.8,107.6 L97.6,108.0 L96.2,108.1 L94.7,108.0 L93.2,107.7 L91.6,107.0 L90.2,106.1 L88.8,104.9 L87.6,103.4 L86.6,101.7 L85.9,99.7 L85.4,97.6 L85.3,95.4 L85.5,93.0 L86.1,90.7 L87.1,88.3 L88.5,86.1 L90.3,84.1 L92.4,82.3 L94.9,80.7 L97.6,79.6 L100.6,78.8 L103.7,78.5 L107.0,78.6 L110.2,79.2 L113.5,80.4 L116.6,82.0 L119.5,84.2 L122.1,86.8 L124.3,89.9 L126.2,93.3 L127.5,97.0 L128.3,101.0 L128.5,105.2 L128.0,109.4 L127.0,113.6 L125.3,117.7 L123.0,121.6 L120.0,125.1 L116.6,128.3 L112.6,131.0 L108.2,133.1 L103.4,134.5 L98.4,135.3 L93.3,135.4 L88.1,134.6 L82.9,133.1 L78.0,130.9 L73.3,127.9 L69.1,124.2 L65.4,119.8 L62.3,114.9 L60.0,109.5 L58.4,103.7 L57.6,97.7 L57.8,91.5 L58.8,85.4 L60.8,79.3 L63.6,73.5 L67.3,68.2 L71.8,63.3 L77.0,59.1 L82.9,55.6 L89.3,53.0 L96.1,51.3 L103.1,50.6 L110.3,50.9 L117.4,52.3 L124.4,54.7 L131.0,58.1 L137.1,62.6 L142.6,67.9 L147.3,74.0 L151.2,80.8 L154.0,88.2 L155.8,96.0 L156.4,104.1 L155.9,112.2 L154.2,120.3 L151.3,128.2 L147.2,135.6 L142.1,142.5 L136.0,148.6 L128.9,153.8 L121.2,158.0 L112.8,161.0 L104.0,162.9 L94.9,163.4 L85.7,162.7 L76.6,160.6 L67.9,157.2 L59.7,152.5 L52.1,146.6 L45.4,139.7 L39.7,131.8 L35.2,123.0 L31.9,113.6 L30.0,103.8 L29.6,93.7 L30.6,83.5 L33.1,73.5 L37.0,63.9 L42.3,54.8 L48.9,46.6 L56.7,39.3 L65.6,33.1 L75.3,28.3 L85.7,24.9 L96.5,22.9 L107.7,22.6 L118.8,23.9 L129.8,26.7 L140.3,31.2 L150.1,37.2 L159.0,44.6 L166.9,53.2 L173.5,63.0 L178.6,73.7 L182.2,85.1 L184.2,97.0 L184.4,109.1 L182.8,121.3 L179.5,133.1 L174.5,144.5 L167.9,155.1 L159.7,164.7 L150.2,173.1 L139.5,180.2 L127.8,185.6" fill="none" stroke="oklch(0.5 0.19 25)" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-          <svg viewBox="0 0 200 200" style="position:absolute; top:44%; right:16%; width:56px; height:56px; opacity:0.75; pointer-events:none; animation:spin 18s linear infinite reverse; mix-blend-mode:screen;">
-            <path d="M100.0,100.0 L100.6,100.1 L101.2,100.4 L101.8,100.8 L102.2,101.4 L102.4,102.1 L102.5,102.9 L102.4,103.8 L102.1,104.7 L101.6,105.6 L100.9,106.4 L99.9,107.1 L98.8,107.6 L97.6,108.0 L96.2,108.1 L94.7,108.0 L93.2,107.7 L91.6,107.0 L90.2,106.1 L88.8,104.9 L87.6,103.4 L86.6,101.7 L85.9,99.7 L85.4,97.6 L85.3,95.4 L85.5,93.0 L86.1,90.7 L87.1,88.3 L88.5,86.1 L90.3,84.1 L92.4,82.3 L94.9,80.7 L97.6,79.6 L100.6,78.8 L103.7,78.5 L107.0,78.6 L110.2,79.2 L113.5,80.4 L116.6,82.0 L119.5,84.2 L122.1,86.8 L124.3,89.9 L126.2,93.3 L127.5,97.0 L128.3,101.0 L128.5,105.2 L128.0,109.4 L127.0,113.6 L125.3,117.7 L123.0,121.6 L120.0,125.1 L116.6,128.3 L112.6,131.0 L108.2,133.1 L103.4,134.5 L98.4,135.3 L93.3,135.4 L88.1,134.6 L82.9,133.1 L78.0,130.9 L73.3,127.9 L69.1,124.2 L65.4,119.8 L62.3,114.9 L60.0,109.5 L58.4,103.7 L57.6,97.7 L57.8,91.5 L58.8,85.4 L60.8,79.3 L63.6,73.5 L67.3,68.2 L71.8,63.3 L77.0,59.1 L82.9,55.6 L89.3,53.0 L96.1,51.3 L103.1,50.6 L110.3,50.9 L117.4,52.3 L124.4,54.7 L131.0,58.1 L137.1,62.6 L142.6,67.9 L147.3,74.0 L151.2,80.8 L154.0,88.2 L155.8,96.0 L156.4,104.1 L155.9,112.2 L154.2,120.3 L151.3,128.2 L147.2,135.6 L142.1,142.5 L136.0,148.6 L128.9,153.8 L121.2,158.0 L112.8,161.0 L104.0,162.9 L94.9,163.4 L85.7,162.7 L76.6,160.6 L67.9,157.2 L59.7,152.5 L52.1,146.6 L45.4,139.7 L39.7,131.8 L35.2,123.0 L31.9,113.6 L30.0,103.8 L29.6,93.7 L30.6,83.5 L33.1,73.5 L37.0,63.9 L42.3,54.8 L48.9,46.6 L56.7,39.3 L65.6,33.1 L75.3,28.3 L85.7,24.9 L96.5,22.9 L107.7,22.6 L118.8,23.9 L129.8,26.7 L140.3,31.2 L150.1,37.2 L159.0,44.6 L166.9,53.2 L173.5,63.0 L178.6,73.7 L182.2,85.1 L184.2,97.0 L184.4,109.1 L182.8,121.3 L179.5,133.1 L174.5,144.5 L167.9,155.1 L159.7,164.7 L150.2,173.1 L139.5,180.2 L127.8,185.6" fill="none" stroke="oklch(0.5 0.19 25)" stroke-width="4" stroke-linecap="round"/>
-          </svg>
+    <div class="countdown" id="countdown" aria-label="Обратный отсчёт до старта игры">
+      <div class="countdown__item">
+        <span class="countdown__value" data-unit="days">00</span>
+        <span class="countdown__label">дней</span>
+      </div>
+      <div class="countdown__item">
+        <span class="countdown__value" data-unit="hours">00</span>
+        <span class="countdown__label">часов</span>
+      </div>
+      <div class="countdown__item">
+        <span class="countdown__value" data-unit="minutes">00</span>
+        <span class="countdown__label">минут</span>
+      </div>
+      <div class="countdown__item">
+        <span class="countdown__value" data-unit="seconds">00</span>
+        <span class="countdown__label">секунд</span>
+      </div>
+    </div>
+    <p class="countdown__caption">до старта игры</p>
+  </div>
+</header>
+
+<main>
+
+  <section class="about" aria-labelledby="about-title">
+    <div class="about__inner">
+      <div class="about__media">
+        <div class="about__photo-frame">
+          <img class="about__photo" src="uploads/pasted-1786715733786-0.png" alt="Фото artempencil" loading="lazy">
         </div>
-        <div style="position:absolute; bottom:-18px; right:-18px; display:flex; align-items:center; gap:10px; padding:8px 14px 8px 8px; background:oklch(0.1 0.01 40); border:1px solid oklch(0.32 0.02 40); border-radius:30px; box-shadow:0 6px 18px oklch(0 0 0 / 0.4);">
-          <div style="width:38px; height:38px; border-radius:50%; overflow:hidden; flex:none;">
-            <image-slot id="hippo-silhouette" shape="circle" placeholder="силуэт бегемота"></image-slot>
-          </div>
-          <div style="display:flex; align-items:center; gap:6px; font-family:'Oswald',sans-serif; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; color:oklch(0.6 0.19 25);">
-            <span style="width:7px; height:7px; border-radius:50%; background:oklch(0.5 0.19 25); box-shadow:0 0 8px oklch(0.5 0.19 25); animation:flicker 1.6s infinite;"></span>
-            В эфире
-          </div>
+        <div class="live-badge">
+          <img class="live-badge__icon" src="uploads/pasted-1786715821358-0.png" alt="" loading="lazy">
+          <span class="live-badge__dot" aria-hidden="true"></span>
+          В эфире
         </div>
       </div>
-      <div style="display:flex; flex-direction:column; gap:20px;">
-        <div style="font-family:'Oswald',sans-serif; letter-spacing:0.3em; font-size:13px; color:oklch(0.5 0.19 25); text-transform:uppercase;">Ведущий игры</div>
-        <h2 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:clamp(30px,4vw,44px); margin:0; font-weight:700;">Артём, он же artempencil</h2>
-        <p style="font-size:16px; line-height:1.7; color:oklch(0.72 0.01 40); margin:0;">120 килограммов живого веса, лысый наголо и абсолютно спокоен на этот счёт. Свой тотем выбрал сам — бегемот. Теперь ему предстоит на камеру пройти все ловушки, которые для него подготовили зрители.</p>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <sc-for list="{{ badges }}" as="badge" hint-placeholder-count="3">
-            <div style="padding:9px 16px; border:1px solid oklch(0.32 0.02 40); border-radius:20px; font-size:13px; letter-spacing:0.03em; color:oklch(0.85 0.01 40);">{{ badge }}</div>
-          </sc-for>
-        </div>
-        <div style="border-left:2px solid oklch(0.5 0.19 25); padding-left:18px; font-style:italic; color:oklch(0.65 0.01 40); font-size:15px; margin-top:8px;">«Я не хотел причинить тебе боль. Я хотел дать тебе шанс.»</div>
+
+      <div class="about__text">
+        <p class="eyebrow eyebrow--left">Ведущий игры</p>
+        <h2 id="about-title" class="about__title">Артём, он же artempencil</h2>
+        <p class="about__desc">
+          120 килограммов живого веса, лысый наголо и абсолютно спокоен на этот счёт.
+          Свой тотем выбрал сам — бегемот. Теперь ему предстоит на камеру пройти
+          все ловушки, которые для него подготовили зрители.
+        </p>
+
+        <ul class="badge-list">
+          <li class="badge">120 кг живого веса</li>
+          <li class="badge">Лысый как ядро игры</li>
+          <li class="badge">Тотем: бегемот</li>
+        </ul>
+
+        <blockquote class="pull-quote">Я не хотел причинить тебе боль. Я хотел дать тебе шанс.</blockquote>
       </div>
     </div>
   </section>
 
-  <!-- QUOTES -->
-  <section style="padding:100px 24px;">
-    <div style="max-width:900px; margin:0 auto; text-align:center;">
-      <div style="font-family:'Oswald',sans-serif; letter-spacing:0.3em; font-size:13px; color:oklch(0.5 0.19 25); text-transform:uppercase; margin-bottom:44px;">Голос бегемота</div>
-      <div style="display:flex; flex-direction:column; gap:48px;">
-        <sc-for list="{{ scaryQuotes }}" as="quote" hint-placeholder-count="4">
-          <div style="font-family:'Oswald',sans-serif; font-size:clamp(22px,3vw,32px); line-height:1.35; font-weight:500; color:oklch(0.88 0.01 40);">«{{ quote }}»</div>
-        </sc-for>
-      </div>
+  <section class="quotes" aria-labelledby="quotes-title">
+    <p id="quotes-title" class="eyebrow eyebrow--center">Голос бегемота</p>
+    <ul class="quotes__list">
+      <li class="quotes__item">«Я не хотел причинить тебе боль. Я хотел дать тебе шанс.»</li>
+      <li class="quotes__item">«Каждая ловушка, которую ты построишь для себя — построена руками зрителей.»</li>
+      <li class="quotes__item">«Бегемот не спешит. Бегемот ждёт, пока ты сделаешь неверный шаг.»</li>
+      <li class="quotes__item">«Ты можешь молчать сколько угодно. Таймер за тебя не молчит.»</li>
+    </ul>
+  </section>
+
+  <section class="prize" aria-labelledby="prize-title">
+    <p id="prize-title" class="eyebrow eyebrow--center">Финальный экран</p>
+
+    <button class="screen" type="button" id="prize-screen" aria-expanded="false" aria-controls="prize-video-wrap">
+      <span class="screen__scanlines" aria-hidden="true"></span>
+      <span class="screen__glow" aria-hidden="true"></span>
+      <span class="screen__body">
+        <span class="screen__label">Приз ждёт внутри</span>
+        <span class="screen__hint">нажми, чтобы узнать</span>
+      </span>
+    </button>
+
+    <div class="prize-video" id="prize-video-wrap" hidden>
+      <video class="prize-video__el" id="prize-video" controls playsinline preload="none">
+        <source src="uploads/IMG_8168.MOV" type="video/quicktime">
+        <source src="uploads/IMG_8168.MOV" type="video/mp4">
+        Ваш браузер не поддерживает воспроизведение этого видео.
+      </video>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer style="padding:80px 24px 50px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:24px;">
-    <h2 style="font-family:'Oswald',sans-serif; text-transform:uppercase; font-size:clamp(26px,4vw,38px); margin:0; font-weight:700;">Игра ждёт. Бегемот тоже.</h2>
-    <a href="{{ discordUrl }}" style="font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.08em; font-weight:600; font-size:15px; padding:16px 40px; background:oklch(0.5 0.19 25); color:oklch(0.12 0.01 40); border-radius:2px;">Присоединиться</a>
-    <div style="font-size:13px; color:oklch(0.45 0.01 40); margin-top:24px;">artempencil © 2026 — квест придуман для зрителей, участие добровольное.</div>
-  </footer>
+</main>
 
-</div>
+<footer class="footer">
+  <h2 class="footer__title">Игра ждёт. Бегемот тоже.</h2>
+  <a class="btn" href="#" id="discord-link">Присоединиться</a>
+  <p class="footer__fine">artempencil © 2026 — квест придуман для зрителей, участие добровольное.</p>
+</footer>
 
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {}, &quot;discordUrl&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;#&quot;, &quot;tsType&quot;: &quot;string&quot;}, &quot;countdownDate&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;2026-09-01T18:00:00&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Таймер&quot;}}">
-class Component extends DCLogic {
-  state = { now: Date.now() };
-
-  componentDidMount() {
-    this._t = setInterval(() => this.setState({ now: Date.now() }), 1000);
-  }
-  componentWillUnmount() {
-    clearInterval(this._t);
-  }
-
-  renderVals() {
-    const discordUrl = this.props.discordUrl ?? '#';
-    const targetStr = this.props.countdownDate ?? '2026-09-01T18:00:00';
-    const target = new Date(targetStr).getTime();
-    let diff = Math.max(0, target - this.state.now);
-    const day = Math.floor(diff / 86400000);
-    const hr = Math.floor((diff % 86400000) / 3600000);
-    const min = Math.floor((diff % 3600000) / 60000);
-    const sec = Math.floor((diff % 60000) / 1000);
-    const pad = n => String(n).padStart(2, '0');
-
-    const countdownParts = [
-      { value: pad(day), label: 'дней' },
-      { value: pad(hr), label: 'часов' },
-      { value: pad(min), label: 'минут' },
-      { value: pad(sec), label: 'секунд' },
-    ];
-
-    const badges = ['120 кг живого веса', 'Лысый как ядро игры', 'Тотем: бегемот'];
-
-    const scaryQuotes = [
-      'Я не хотел причинить тебе боль. Я хотел дать тебе шанс.',
-      'Каждая ловушка, которую ты построишь для себя — построена руками зрителей.',
-      'Бегемот не спешит. Бегемот ждёт, пока ты сделаешь неверный шаг.',
-      'Ты можешь молчать сколько угодно. Таймер за тебя не молчит.',
-    ];
-
-    return { discordUrl, countdownParts, badges, scaryQuotes };
-  }
-}
-
-</script>
+<script src="script.js"></script>
 </body>
 </html>
