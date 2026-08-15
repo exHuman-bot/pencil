@@ -1,6 +1,6 @@
 (function () {
   var ANSWERS = ['бегемот'];
-  var NEXT_PAGE = 'trap-5.html';
+  var NEXT_PAGE = 'intro-reaction.html';
   var KEY_FRAGMENT = 'А';
 
   var form = document.getElementById('trap-form');
@@ -35,6 +35,7 @@
     } else {
       screen.classList.add('trap-screen--wrong');
       feedback.textContent = 'Неверно. Буквы легли не так.';
+      if (window.TensionFX) window.TensionFX.miss();
       input.focus();
       input.select();
     }

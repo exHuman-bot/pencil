@@ -32,7 +32,7 @@
   ];
 
   var PENALTY_SECONDS = 15;
-  var NEXT_PAGE = 'trap-4.html';
+  var NEXT_PAGE = 'intro-puzzle.html';
   var KEY_FRAGMENT = 'Д';
 
   var screen = document.getElementById('trap-screen');
@@ -110,6 +110,7 @@
       btn.disabled = true;
       screen.classList.add('trap-screen--wrong');
       if (window.GameTimer) window.GameTimer.penalize(PENALTY_SECONDS);
+      if (window.TensionFX) window.TensionFX.miss();
       feedback.textContent = 'Мимо. Бегемот забирает у тебя ' + PENALTY_SECONDS + ' секунд общего времени.';
       setTimeout(function () {
         screen.classList.remove('trap-screen--wrong');

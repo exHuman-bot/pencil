@@ -3,6 +3,8 @@
   var LOST_KEY = 'questLost';
   var TOTAL_SECONDS = 300;
   var DANGER_SECONDS = 30;
+  // TODO: вернуть true, когда таймер снова должен приводить к проигрышу.
+  var TIMEOUT_ENABLED = false;
 
   if (sessionStorage.getItem(LOST_KEY) === '1') {
     window.location.replace('game-over.html');
@@ -26,6 +28,7 @@
 
   var stopped = false;
   var intervalId = null;
+  var lastTickedSecond = null;
 
   function pad(n) {
     return String(n).padStart(2, '0');
@@ -43,9 +46,18 @@
 
     if (totalSec <= DANGER_SECONDS) {
       badge.classList.add('global-timer--danger');
+      if (window.TensionFX) {
+        window.TensionFX.danger(true);
+        if (totalSec !== lastTickedSecond) {
+          lastTickedSecond = totalSec;
+          window.TensionFX.tick();
+        }
+      }
+    } else if (window.TensionFX) {
+      window.TensionFX.danger(false);
     }
 
-    if (remaining <= 0) {
+    if (remaining <= 0 && TIMEOUT_ENABLED) {
       stopped = true;
       if (intervalId) clearInterval(intervalId);
       sessionStorage.setItem(LOST_KEY, '1');
@@ -66,12 +78,14 @@
     stop: function () {
       stopped = true;
       if (intervalId) clearInterval(intervalId);
+      if (window.TensionFX) window.TensionFX.danger(false);
     },
     clear: function () {
       stopped = true;
       if (intervalId) clearInterval(intervalId);
       sessionStorage.removeItem(STORAGE_KEY);
       sessionStorage.removeItem(LOST_KEY);
+      if (window.TensionFX) window.TensionFX.danger(false);
     }
   };
 })();

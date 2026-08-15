@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ловушка №3 — стрим-квест artempencil</title>
-<meta name="description" content="Третья ловушка стрим-квеста artempencil. Один из ответов верный — остальные штрафуют.">
+<title>Пройди по краю — стрим-квест artempencil</title>
+<meta name="description" content="Внеочередное испытание стрим-квеста artempencil. Проведи курсор по узкой дорожке.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,24 +20,28 @@
   <div class="hero__content trap">
     <p class="eyebrow">
       <span class="eyebrow__line" aria-hidden="true"></span>
-      Ловушка № 3
+      Внеочередное испытание
       <span class="eyebrow__line" aria-hidden="true"></span>
     </p>
 
-    <h1 class="hero__title glitch trap__title" data-text="Четыре двери">Четыре двери</h1>
+    <h1 class="hero__title glitch trap__title" data-text="Пройди по краю">Пройди по краю</h1>
 
     <p class="hero__lead trap__intro">
-
-      Одна дверь ведёт дальше. Три другие — просто отнимают время.
-      Бегемот не подскажет какая: думай сам, или плати секундами.
+      Начни с зелёной точки и веди палец или курсор до красной, не
+      покидая дорожку. Сорвался — начинай с начала.
     </p>
 
     <div class="trap-screen" id="trap-screen">
       <span class="screen__scanlines" aria-hidden="true"></span>
-      <p class="trap-screen__progress" id="trap-progress"></p>
-      <p class="trap-screen__riddle" id="trap-riddle"></p>
 
-      <ul class="trap-choices" id="trap-choices"></ul>
+      <div class="maze-wrap" id="maze-wrap">
+        <svg class="maze-svg" id="maze-svg" viewBox="0 0 500 200" aria-hidden="true">
+          <path class="maze-path" d="M20,100 C90,20 140,180 200,100 C260,20 310,180 370,100 C410,60 450,140 480,100"/>
+          <path class="maze-path-line" d="M20,100 C90,20 140,180 200,100 C260,20 310,180 370,100 C410,60 450,140 480,100"/>
+          <circle class="maze-point maze-start" cx="20" cy="100" r="12"/>
+          <circle class="maze-point maze-end" cx="480" cy="100" r="12"/>
+        </svg>
+      </div>
 
       <p class="trap-screen__feedback" id="trap-feedback" role="status" aria-live="polite"></p>
     </div>
@@ -47,8 +51,7 @@
 
 <script src="tension-fx.js"></script>
 <script src="game-timer.js"></script>
-<script src="key-collector.js"></script>
-<script src="trap-3.js"></script>
+<script src="trap-maze.js"></script>
 <script src="music-player.js"></script>
 </body>
 </html>

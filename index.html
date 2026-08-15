@@ -16,6 +16,36 @@
   <div class="hero__vignette" aria-hidden="true"></div>
   <div class="hero__noise" aria-hidden="true"></div>
   <div class="hero__diagonals" aria-hidden="true"></div>
+  <div class="intro__heartbeat" aria-hidden="true"></div>
+
+  <svg class="intro__splatter" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <filter id="splat-edge-home" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="7" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="70"/>
+      </filter>
+    </defs>
+    <g class="splat-cluster" filter="url(#splat-edge-home)">
+      <circle cx="90" cy="110" r="60"/>
+      <circle cx="35" cy="190" r="24"/>
+      <circle cx="150" cy="205" r="13"/>
+      <circle cx="70" cy="55" r="16"/>
+    </g>
+    <g class="splat-cluster" filter="url(#splat-edge-home)">
+      <circle cx="915" cy="860" r="78"/>
+      <circle cx="850" cy="770" r="28"/>
+      <circle cx="962" cy="905" r="15"/>
+      <circle cx="930" cy="945" r="10"/>
+    </g>
+    <g class="splat-cluster splat-cluster--faint" filter="url(#splat-edge-home)">
+      <circle cx="930" cy="140" r="42"/>
+      <circle cx="978" cy="90" r="14"/>
+    </g>
+    <g class="splat-cluster splat-cluster--faint" filter="url(#splat-edge-home)">
+      <circle cx="60" cy="900" r="48"/>
+      <circle cx="112" cy="952" r="17"/>
+    </g>
+  </svg>
 
   <div class="hero__content">
     <p class="eyebrow">
@@ -24,60 +54,47 @@
       <span class="eyebrow__line" aria-hidden="true"></span>
     </p>
 
-    <h1 class="hero__title glitch" data-text="Хочешь сыграть в игру?"><br>сыграть в игру?</h1>
+    <h1 class="hero__title glitch" data-text="Хочешь сыграть в игру?">Хочешь сыграть в игру?</h1>
 
-    <p class="hero__lead">
-      Артём весит 120 кило, лысый наголо и молится бегемоту. Загадки для него уже
-      расставлены по всему сайту — вы наблюдаете, а решать придётся ему.
-      Справится или окажется на дне пруда?
-    </p>
+    <div class="hero__lead">
+      <p>
+        Артём. Сто двадцать килограммов самоуверенности, ни одного волоса на
+        голове и непоколебимая вера в то, что ему всё сойдёт с рук.
+      </p>
+      <p>Пять испытаний.</p>
+      <p>Один таймер, который не знает ни жалости, ни терпения.</p>
+      <p>
+        Здесь каждая секунда имеет значение. Каждая ошибка оставляет свой
+        след.
+      </p>
+      <p>Ты привык думать, что всегда найдёшь выход.</p>
+      <p>Сегодня мы проверим, так ли это на самом деле.</p>
+      <p class="hero__lead-final">Игра начинается.</p>
+    </div>
 
     <div class="hero__actions">
       <a class="btn btn--start" href="start.html">Начать играть</a>
-      <a class="btn btn--outline" href="https://www.twitch.tv/artempencil" target="_blank" rel="noopener">Смотреть, как он играет</a>
-      <a class="btn btn--outline" href="trap-1.html">Ловушка № 1</a>
     </div>
 
     <ul class="rules-strip">
-      <li class="rules-strip__item"><span class="rules-strip__num">01</span>Ловушки расставляют зрители</li>
-      <li class="rules-strip__item"><span class="rules-strip__num">02</span>Решает только Артём</li>
-      <li class="rules-strip__item"><span class="rules-strip__num">03</span>Таймер не останавливается</li>
+      <li class="rules-strip__item"><span class="rules-strip__num">01</span>Решает только Артём</li>
+      <li class="rules-strip__item"><span class="rules-strip__num">02</span>Таймер не останавливается</li>
     </ul>
 
-    <div class="countdown" id="countdown" aria-label="Обратный отсчёт до старта игры">
-      <div class="countdown__item">
-        <span class="countdown__value" data-unit="days">00</span>
-        <span class="countdown__label">дней</span>
-      </div>
-      <div class="countdown__item">
-        <span class="countdown__value" data-unit="hours">00</span>
-        <span class="countdown__label">часов</span>
-      </div>
-      <div class="countdown__item">
-        <span class="countdown__value" data-unit="minutes">00</span>
-        <span class="countdown__label">минут</span>
-      </div>
-      <div class="countdown__item">
-        <span class="countdown__value" data-unit="seconds">00</span>
-        <span class="countdown__label">секунд</span>
-      </div>
-    </div>
-    <p class="countdown__caption">до старта игры</p>
+    <p class="hero__warning">Обратного пути больше нет.</p>
   </div>
 
-  <div class="scroll-cue" aria-hidden="true">
-    <span class="scroll-cue__line"></span>
-    <span class="scroll-cue__text">листай</span>
-  </div>
 </header>
 
 <main>
 
-  <section class="about" aria-labelledby="about-title">
-    <div class="about__inner">
-      <div class="about__media">
-        <div class="about__photo-frame">
-          <img class="about__photo" src="uploads/pasted-1786715733786-0.png" alt="Фото artempencil" loading="lazy">
+  <section class="dossier" aria-labelledby="dossier-title">
+    <div class="dossier__inner">
+      <div class="dossier__media">
+        <div class="dossier__photo-frame">
+          <img class="dossier__photo" src="uploads/pasted-1786715733786-0.png" alt="Фото artempencil" loading="lazy">
+          <span class="dossier__scanlines" aria-hidden="true"></span>
+          <span class="dossier__stamp">Объект</span>
         </div>
         <div class="live-badge">
           <img class="live-badge__icon" src="uploads/pasted-1786715821358-0.png" alt="" loading="lazy">
@@ -86,22 +103,31 @@
         </div>
       </div>
 
-      <div class="about__text">
-        <p class="eyebrow eyebrow--left">Ведущий игры</p>
-        <h2 id="about-title" class="about__title">Артём, он же artempencil</h2>
-        <p class="about__desc">
+      <div class="dossier__text">
+        <p class="eyebrow eyebrow--left">Досье</p>
+        <h2 id="dossier-title" class="dossier__title">Артём, он же artempencil</h2>
+        <p class="dossier__desc">
           120 килограммов живого веса, лысый наголо и абсолютно спокоен на этот счёт.
           Свой тотем выбрал сам — бегемот. Теперь ему предстоит на камеру пройти
           все ловушки, которые для него подготовили зрители.
         </p>
 
-        <ul class="badge-list">
-          <li class="badge">120 кг живого веса</li>
-          <li class="badge">Лысый как ядро игры</li>
-          <li class="badge">Тотем: бегемот</li>
-        </ul>
+        <dl class="dossier__stats">
+          <div class="dossier__stat">
+            <dt>Вес</dt>
+            <dd>120 кг живого веса</dd>
+          </div>
+          <div class="dossier__stat">
+            <dt>Особая примета</dt>
+            <dd>Лысый как последние надежды его любви</dd>
+          </div>
+          <div class="dossier__stat">
+            <dt>Тотем</dt>
+            <dd>Девочка-ошибка</dd>
+          </div>
+        </dl>
 
-        <blockquote class="pull-quote">Я не хотел причинить тебе боль. Я хотел дать тебе шанс.</blockquote>
+        <blockquote class="dossier__note">Я не хотел причинить тебе боль. Я хотел дать тебе шанс.</blockquote>
       </div>
     </div>
   </section>
@@ -111,44 +137,40 @@
   <section class="quotes" aria-labelledby="quotes-title">
     <p id="quotes-title" class="eyebrow eyebrow--center">Голос бегемота</p>
     <ul class="quotes__list">
-      <li class="quotes__item">«Я не хотел причинить тебе боль. Я хотел дать тебе шанс.»</li>
-      <li class="quotes__item">«Каждая ловушка, которую ты построишь для себя — построена руками зрителей.»</li>
-      <li class="quotes__item">«Бегемот не спешит. Бегемот ждёт, пока ты сделаешь неверный шаг.»</li>
-      <li class="quotes__item">«Ты можешь молчать сколько угодно. Таймер за тебя не молчит.»</li>
+      <li class="quotes__item">«Ты можешь молчать сколько угодно. Но время не умеет молчать.»</li>
+      <li class="quotes__item">«Ты думаешь, что управляешь игрой. Но игра уже давно управляет тобой.»</li>
+      <li class="quotes__item">«Каждый выбор кажется простым, пока не становится последним.»</li>
+      <li class="quotes__item">«Ты можешь винить зрителей. Можешь винить меня. Но решение всегда принимаешь ты.»</li>
+      <li class="quotes__item">«Время не наказывает. Оно просто забирает то, что ты не успел сохранить.»</li>
     </ul>
   </section>
 
   <div class="divider" role="separator" aria-hidden="true"><span class="divider__dot"></span></div>
 
-  <section class="prize" aria-labelledby="prize-title">
-    <p id="prize-title" class="eyebrow eyebrow--center">Финальный экран</p>
+  <section class="stakes" aria-labelledby="prize-title">
+    <p id="prize-title" class="eyebrow eyebrow--center">Цена победы</p>
 
-    <button class="screen" type="button" id="prize-screen" aria-expanded="false" aria-controls="prize-video-wrap">
+    <button class="screen" type="button" id="prize-screen" aria-expanded="false" aria-controls="prize-reveal">
       <span class="screen__scanlines" aria-hidden="true"></span>
       <span class="screen__glow" aria-hidden="true"></span>
       <span class="screen__body">
-        <span class="screen__label">Приз ждёт внутри</span>
+        <span class="screen__label">Что он получит, если пройдёт всё?</span>
         <span class="screen__hint">нажми, чтобы узнать</span>
       </span>
     </button>
 
-    <div class="prize-video" id="prize-video-wrap" hidden>
-      <video class="prize-video__el" id="prize-video" controls playsinline preload="none">
-        <source src="uploads/IMG_8168.MOV" type="video/quicktime">
-        <source src="uploads/IMG_8168.MOV" type="video/mp4">
-        Ваш браузер не поддерживает воспроизведение этого видео.
-      </video>
+    <div class="stakes-reveal" id="prize-reveal" hidden>
+      <span class="screen__scanlines" aria-hidden="true"></span>
+      <p class="stakes-reveal__line">Приз — не деньги. Не слава. Не донаты.</p>
+      <p class="stakes-reveal__line stakes-reveal__line--emph">Он останется жив.</p>
     </div>
   </section>
 
 </main>
 
 <footer class="footer">
-  <h2 class="footer__title">Игра ждёт. Бегемот тоже.</h2>
-  <a class="btn" href="#" id="discord-link">Присоединиться</a>
-  <p class="footer__fine">artempencil © 2026 — квест придуман для зрителей, участие добровольное.</p>
+  <p class="footer__fine">artempencil © 2026 — научитесь ценить жизнь, участие добровольное.</p>
 </footer>
-jopa
 <script src="script.js"></script>
 <script src="music-player.js"></script>
 </body>

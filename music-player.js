@@ -1,6 +1,8 @@
 (function () {
-  var SRC = 'uploads/theme.mp3';
+  var isHome = /\/(index\.html)?$/.test(window.location.pathname);
+  var SRC = isHome ? 'uploads/saw_15 - Be Alright.mp3' : 'uploads/theme.mp3';
   var STORAGE_KEY = 'musicOn';
+  var TIME_KEY = 'musicTime:' + SRC;
 
   var audio = document.createElement('audio');
   audio.src = SRC;
@@ -27,6 +29,33 @@
     btn.title = on ? 'Выключить музыку' : 'Включить музыку';
   }
 
+  function saveTime() {
+    if (audio.currentTime > 0) {
+      localStorage.setItem(TIME_KEY, String(audio.currentTime));
+    }
+  }
+
+  // Продолжаем трек с того места, где он играл на предыдущей странице,
+  // а не заново с нуля.
+  audio.addEventListener('loadedmetadata', function () {
+    var saved = parseFloat(localStorage.getItem(TIME_KEY));
+    if (!isNaN(saved) && saved > 0 && saved < audio.duration) {
+      audio.currentTime = saved;
+    }
+  });
+
+  var lastSaved = 0;
+  audio.addEventListener('timeupdate', function () {
+    var now = Date.now();
+    if (now - lastSaved > 1000) {
+      lastSaved = now;
+      saveTime();
+    }
+  });
+
+  window.addEventListener('pagehide', saveTime);
+  window.addEventListener('beforeunload', saveTime);
+
   function play() {
     audio.play().then(function () {
       localStorage.setItem(STORAGE_KEY, '1');
@@ -37,17 +66,34 @@
   }
 
   function pause() {
+    saveTime();
     audio.pause();
     localStorage.setItem(STORAGE_KEY, '0');
     setState(false);
   }
 
-  btn.addEventListener('click', function () {
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
     if (audio.paused) play(); else pause();
   });
 
   setState(false);
-  if (localStorage.getItem(STORAGE_KEY) === '1') {
+
+  var explicitlyOff = localStorage.getItem(STORAGE_KEY) === '0';
+
+  if (!explicitlyOff) {
     play();
+
+    if (audio.paused) {
+      var startOnFirstTouch = function () {
+        document.removeEventListener('pointerdown', startOnFirstTouch, true);
+        document.removeEventListener('keydown', startOnFirstTouch, true);
+        play();
+      };
+      document.addEventListener('pointerdown', startOnFirstTouch, true);
+      document.addEventListener('keydown', startOnFirstTouch, true);
+    }
   }
+
+  window.MusicPlayer = { play: play, pause: pause };
 })();

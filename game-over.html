@@ -15,11 +15,21 @@
 <main class="blackout">
   <div class="blackout__noise" aria-hidden="true"></div>
   <div class="blackout__content">
-    <p class="blackout__text blackout__text--done">Время вышло. Бегемот забрал тебя себе.</p>
+    <p class="blackout__text blackout__text--done" id="game-over-text">Время вышло. Бегемот забрал тебя себе.</p>
     <a class="btn btn--start" href="start.html">Начать заново</a>
   </div>
 </main>
 
+<script>
+  (function () {
+    var reason = new URLSearchParams(window.location.search).get('reason');
+    var messages = {
+      click: 'Ты не смог просто ждать. Нетерпение стоило тебе игры.'
+    };
+    var el = document.getElementById('game-over-text');
+    if (el && messages[reason]) el.textContent = messages[reason];
+  })();
+</script>
 <script src="music-player.js"></script>
 </body>
 </html>

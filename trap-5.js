@@ -49,6 +49,7 @@
       feedback.textContent = normalizedKey.length > 0
         ? 'Неверно. Пила крутится дальше.'
         : 'У тебя нет всех фрагментов. Вернись и пройди пропущенные ловушки.';
+      if (window.TensionFX) window.TensionFX.miss({ jumpscareChance: 0.35 });
       input.focus();
       input.select();
     }

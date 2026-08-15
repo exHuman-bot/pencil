@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ловушка №1 — стрим-квест artempencil</title>
-<meta name="description" content="Первая ловушка стрим-квеста artempencil. Разгадай загадку бегемота, чтобы идти дальше.">
+<title>Собери пары — стрим-квест artempencil</title>
+<meta name="description" content="Внеочередное испытание стрим-квеста artempencil. Сопоставь пары.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,24 +20,24 @@
   <div class="hero__content trap">
     <p class="eyebrow">
       <span class="eyebrow__line" aria-hidden="true"></span>
-      Ловушка № 1
+      Внеочередное испытание
       <span class="eyebrow__line" aria-hidden="true"></span>
     </p>
 
-    <h1 class="hero__title glitch trap__title" data-text="Загадка бегемота">Загадка бегемота</h1>
+    <h1 class="hero__title glitch trap__title" data-text="Собери пары">Собери пары</h1>
+
+    <p class="hero__lead trap__intro">
+      Вспомни путь, который уже прошёл. Нажми на пункт слева, затем на
+      совпадающий справа — если ошибёшься, попробуй снова.
+    </p>
 
     <div class="trap-screen" id="trap-screen">
       <span class="screen__scanlines" aria-hidden="true"></span>
-      <p class="trap-screen__progress" id="trap-progress"></p>
-      <p class="trap-screen__riddle" id="trap-riddle"></p>
 
-      <form class="trap-form" id="trap-form" autocomplete="off">
-        <label class="trap-form__label" for="trap-answer">Твой ответ</label>
-        <div class="trap-form__row">
-          <input class="input trap-form__input" type="text" id="trap-answer" name="answer" placeholder="впиши слово" required>
-          <button class="btn" type="submit">Проверить</button>
-        </div>
-      </form>
+      <div class="match-board">
+        <ul class="match-col" id="match-left"></ul>
+        <ul class="match-col" id="match-right"></ul>
+      </div>
 
       <p class="trap-screen__feedback" id="trap-feedback" role="status" aria-live="polite"></p>
     </div>
@@ -47,8 +47,7 @@
 
 <script src="tension-fx.js"></script>
 <script src="game-timer.js"></script>
-<script src="key-collector.js"></script>
-<script src="trap-1.js"></script>
+<script src="trap-match.js"></script>
 <script src="music-player.js"></script>
 </body>
 </html>

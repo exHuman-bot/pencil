@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Внеочередное испытание — стрим-квест artempencil</title>
+<meta name="description" content="Голос перед испытанием на память в стрим-квесте artempencil.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="intro">
+  <div class="intro__vignette" aria-hidden="true"></div>
+  <div class="intro__noise" aria-hidden="true"></div>
+  <div class="intro__heartbeat" aria-hidden="true"></div>
+
+  <svg class="intro__splatter" viewBox="0 0 1000 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <filter id="splat-edge" x="-30%" y="-30%" width="160%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="7" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="70"/>
+      </filter>
+    </defs>
+    <g class="splat-cluster" filter="url(#splat-edge)">
+      <circle cx="90" cy="110" r="60"/>
+      <circle cx="35" cy="190" r="24"/>
+      <circle cx="150" cy="205" r="13"/>
+      <circle cx="70" cy="55" r="16"/>
+    </g>
+    <g class="splat-cluster" filter="url(#splat-edge)">
+      <circle cx="915" cy="860" r="78"/>
+      <circle cx="850" cy="770" r="28"/>
+      <circle cx="962" cy="905" r="15"/>
+      <circle cx="930" cy="945" r="10"/>
+    </g>
+    <g class="splat-cluster splat-cluster--faint" filter="url(#splat-edge)">
+      <circle cx="930" cy="140" r="42"/>
+      <circle cx="978" cy="90" r="14"/>
+    </g>
+    <g class="splat-cluster splat-cluster--faint" filter="url(#splat-edge)">
+      <circle cx="60" cy="900" r="48"/>
+      <circle cx="112" cy="952" r="17"/>
+    </g>
+    <g class="streaks">
+      <path pathLength="1" d="M120,0 C114,80 132,150 122,240 C116,300 130,340 124,420"/>
+      <path pathLength="1" d="M880,0 C886,70 868,160 878,250 C884,320 870,360 876,430" style="animation-delay:2s"/>
+      <path pathLength="1" d="M500,0 C505,60 492,140 500,220" style="animation-delay:3.6s"/>
+    </g>
+  </svg>
+
+  <div class="intro__content">
+    <p class="start__eyebrow">Внеочередное испытание</p>
+
+    <svg class="intro__drip" viewBox="0 0 320 44" aria-hidden="true">
+      <path class="drop" style="animation-delay:0s" transform="translate(24,2) scale(1.4)" d="M12 2c0 0-7 8.5-7 13a7 7 0 0 0 14 0c0-4.5-7-13-7-13z"/>
+      <path class="drop" style="animation-delay:0.5s" transform="translate(100,8) scale(1)" d="M12 2c0 0-7 8.5-7 13a7 7 0 0 0 14 0c0-4.5-7-13-7-13z"/>
+      <path class="drop" style="animation-delay:0.25s" transform="translate(160,0) scale(1.6)" d="M12 2c0 0-7 8.5-7 13a7 7 0 0 0 14 0c0-4.5-7-13-7-13z"/>
+      <path class="drop" style="animation-delay:0.8s" transform="translate(240,6) scale(1.1)" d="M12 2c0 0-7 8.5-7 13a7 7 0 0 0 14 0c0-4.5-7-13-7-13z"/>
+    </svg>
+
+    <h1 class="intro__title">Вспомни путь.</h1>
+
+    <p class="intro__line" style="--d:0.5s">
+      Ты прошёл уже немало. Тишину, выбор, лица, разбросанные буквы.
+      Что-то из этого уже забылось?
+    </p>
+
+    <p class="intro__line" style="--d:1.4s">
+      Проверим. Соедини то, что случилось, с тем, чем это было. Ошибка
+      не страшна — здесь она просто стоит времени.
+    </p>
+
+    <p class="intro__line intro__line--last" style="--d:2.3s">
+      Память — тоже часть игры.
+    </p>
+
+    <a class="btn btn--start intro__cta" style="--d:20s" href="trap-match.html">Пройти испытание</a>
+  </div>
+</div>
+
+<script src="tension-fx.js"></script>
+<script src="game-timer.js"></script>
+<script src="music-player.js"></script>
+</body>
+</html>
