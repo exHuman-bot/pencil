@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ловушка №7 — Животные</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="blackout trap-extra">
+  <div class="blackout__noise" aria-hidden="true"></div>
+  <div class="blackout__content">
+    <p class="blackout__text game-task"><span class="game-task__kicker">Задание</span><span>Найди волосатое животное без совести</span></p>
+    <div class="image-board" id="image-board" aria-label="Поле с картинками">
+      <button class="image-card" type="button" data-correct="false" aria-label="Картинка 1"><img src="assets/trap-3/1.webp" alt="Картинка 1"><span class="image-card__label">ЗМЕЯ</span></button>
+      <button class="image-card" type="button" data-correct="false" aria-label="Картинка 2"><img src="assets/trap-3/2.jpeg" alt="Картинка 2"><span class="image-card__label">ЛЕТУЧАЯ МЫШЬ(только не ешь)</span></button>
+      <button class="image-card" type="button" data-correct="false" aria-label="Картинка 3"><img src="assets/trap-3/3.jpeg" alt="Картинка 3"><span class="image-card__label">ЛОСОСЬ</span></button>
+      <button class="image-card" type="button" data-correct="true" aria-label="Картинка 4, правильная"><img src="assets/trap-3/4.png" alt="Картинка 4"><span class="image-card__label">ВОЛОСАТЫЙ БЕГЕМОТ</span></button>
+    </div>
+    <p class="game-task__feedback" id="image-feedback" role="status" aria-live="polite"></p>
+  </div>
+</main>
+<script src="tension-fx.js"></script>
+<script src="game-timer.js"></script>
+<script src="trap-7.js"></script>
+<script src="music-player.js"></script>
+</body>
+</html>

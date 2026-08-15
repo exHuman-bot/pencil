@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ловушка №6 — Фигуры</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="blackout trap-extra">
+  <div class="blackout__noise" aria-hidden="true"></div>
+  <div class="blackout__content">
+    <p class="blackout__text game-task"><span class="game-task__kicker">Разминка</span><span>Нажми на красный круг</span></p>
+    <div class="shape-board" id="shape-board" aria-label="Поле с геометрическими фигурами">
+      <button class="shape shape--blue-circle" type="button" aria-label="Синий круг"></button>
+      <button class="shape shape--red-square" type="button" aria-label="Красный квадрат"></button>
+      <button class="shape shape--blue-square" type="button" aria-label="Синий квадрат"></button>
+      <button class="shape shape--red-triangle" type="button" aria-label="Красный треугольник"></button>
+      <button class="shape shape--red-circle shape--decoy" type="button" aria-label="Красный круг-приманка"></button>
+      <button class="shape shape--blue-triangle" type="button" aria-label="Синий треугольник"></button>
+      <button class="shape shape--yellow-diamond" type="button" aria-label="Жёлтый ромб"></button>
+      <button class="shape shape--red-square shape--target" type="button" aria-label="Красный квадрат"></button>
+      <button class="shape shape--red-circle shape--runner" type="button" aria-label="Красный круг"></button>
+      <button class="shape shape--blue-hexagon" type="button" aria-label="Синий шестиугольник"></button>
+      <button class="shape shape--purple-pentagon" type="button" aria-label="Фиолетовый пятиугольник"></button>
+      <button class="shape shape--green-star" type="button" aria-label="Зелёная звезда"></button>
+      <button class="shape shape--orange-oval" type="button" aria-label="Оранжевый овал"></button>
+      <button class="shape shape--cyan-diamond" type="button" aria-label="Бирюзовый ромб"></button>
+      <button class="shape shape--pink-cross" type="button" aria-label="Розовый крест"></button>
+      <span class="shape-message" id="shape-message" hidden></span>
+    </div>
+    <p class="game-task__feedback" id="shape-feedback" role="status" aria-live="polite"></p>
+  </div>
+</main>
+<script src="tension-fx.js"></script>
+<script src="game-timer.js"></script>
+<script src="trap-6.js"></script>
+<script src="music-player.js"></script>
+</body>
+</html>

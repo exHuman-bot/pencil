@@ -11,7 +11,7 @@
     return;
   }
 
-  var deadline = 123;
+  var deadline = Number(sessionStorage.getItem(STORAGE_KEY));
   if (!deadline) {
     deadline = Date.now() + TOTAL_SECONDS * 1000;
     sessionStorage.setItem(STORAGE_KEY, String(deadline));

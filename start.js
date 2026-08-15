@@ -2,6 +2,7 @@
   sessionStorage.removeItem('questDeadline');
   sessionStorage.removeItem('questLost');
   sessionStorage.removeItem('questKeyParts');
+  sessionStorage.removeItem('trap6UnlockAt');
 
   // TODO: вернуть остальные фразы после тестирования.
   var PHRASES = [
