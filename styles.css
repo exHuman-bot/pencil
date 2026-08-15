@@ -182,6 +182,7 @@ img { display: block; max-width: 100%; }
 .debug-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.78); }
 .debug-modal__dialog { position: relative; z-index: 1; width: min(620px,100%); padding: 40px 32px 32px; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); box-shadow: 0 20px 60px rgba(0,0,0,.6); text-align: center; }
 .debug-modal__title { margin: 0 0 24px; font-family: var(--font-display); font-size: clamp(26px,5vw,36px); text-transform: uppercase; }
+.debug-modal__section-label { margin: 26px 0 12px; color: var(--color-text-muted); font-family: var(--font-display); font-size: 14px; letter-spacing: .12em; text-transform: uppercase; }
 .debug-modal__close { position: absolute; top: 12px; right: 14px; border: 0; background: transparent; color: var(--color-text-muted); font-size: 28px; line-height: 1; cursor: pointer; }
 .debug-modal__close:hover { color: var(--color-accent-hover); }
 .debug-modal__grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }

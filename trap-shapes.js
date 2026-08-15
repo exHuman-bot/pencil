@@ -69,7 +69,7 @@
     feedback.textContent = 'ВЕРНО. КРАСНЫЙ КРУГ НАЙДЕН. Наконец-то';
     board.classList.add('shape-board--success');
     board.querySelectorAll('.shape').forEach(function (shape) { shape.disabled = true; });
-    setTimeout(function () { window.location.href = 'trap-7.html'; }, 2000);
+    setTimeout(function () { window.location.href = 'trap-animals.html'; }, 2000);
   });
   decoy.addEventListener('click', function () { showMessage('Это синий круг, тупица', decoy, 2000); });
   runner.addEventListener('mouseenter', escapeRunner);
