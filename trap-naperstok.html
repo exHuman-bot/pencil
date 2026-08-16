@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Ловушка: Напёрсток</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    if (new URLSearchParams(location.search).get('debug') === '1') {
+      document.documentElement.classList.add('debug-mode');
+    }
+  </script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      background: #111;
+      color: #fff;
+
+      font-family: Arial, sans-serif;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      overflow-x: hidden;
+    }
+
+    .game {
+      width: 100%;
+      max-width: 1400px;
+
+      padding: 30px 20px;
+
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+    }
+
+    .status {
+      min-height: 32px;
+      margin-bottom: 15px;
+
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .status.win {
+      color: #5cff7a;
+    }
+
+    .status.lose {
+      color: #ff6666;
+    }
+
+    .lives-box {
+      margin-bottom: 5px;
+    }
+
+    .lives-title {
+      margin-bottom: 8px;
+
+      color: #aaa;
+
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .lives {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      gap: 18px;
+
+      height: 55px;
+    }
+
+    .life {
+      position: relative;
+
+      width: 45px;
+      height: 45px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 34px;
+
+      transition:
+              transform 0.35s ease,
+              opacity 0.35s ease,
+              filter 0.35s ease;
+    }
+
+    .life::before,
+    .life::after {
+      content: "";
+
+      position: absolute;
+
+      left: 50%;
+      top: 50%;
+
+      width: 0;
+      height: 5px;
+
+      background: #ff3030;
+
+      border-radius: 10px;
+
+      transform-origin: center;
+
+      z-index: 5;
+
+      box-shadow:
+              0 0 8px rgba(255, 0, 0, 0.7);
+    }
+
+    .life::before {
+      transform:
+              translate(-50%, -50%)
+              rotate(45deg);
+    }
+
+    .life::after {
+      transform:
+              translate(-50%, -50%)
+              rotate(-45deg);
+    }
+
+    .life.dead {
+      transform: scale(0.9);
+      filter: grayscale(1);
+      opacity: 0.45;
+    }
+
+    .life.dead::before,
+    .life.dead::after {
+      width: 50px;
+
+      transition:
+              width 0.35s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .life.hit {
+      animation: lifeHit 0.45s ease;
+    }
+
+    @keyframes lifeHit {
+      0% {
+        transform: scale(1);
+      }
+
+      25% {
+        transform: scale(1.35) rotate(-10deg);
+      }
+
+      50% {
+        transform: scale(0.85) rotate(10deg);
+      }
+
+      75% {
+        transform: scale(1.15) rotate(-5deg);
+      }
+
+      100% {
+        transform: scale(0.9);
+      }
+    }
+
+    .table {
+      position: relative;
+
+      width: 100%;
+      height: 280px;
+
+      overflow: hidden;
+
+      padding: 70px 10px 40px;
+    }
+
+    .cups {
+      position: relative;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+
+      gap: 16px;
+
+      min-width: 1100px;
+      height: 170px;
+
+      margin: 0 auto;
+    }
+
+    .cup-wrap {
+      position: relative;
+
+      width: 95px;
+      height: 150px;
+
+      flex: 0 0 95px;
+
+      cursor: pointer;
+      user-select: none;
+
+      will-change: transform;
+
+      z-index: 1;
+    }
+
+    .cup-wrap:hover .cup {
+      filter: brightness(1.08);
+    }
+
+    .cup-wrap.disabled {
+      pointer-events: none;
+    }
+
+    .cup {
+      position: absolute;
+
+      left: 50%;
+      bottom: 12px;
+
+      width: 82px;
+      height: 105px;
+
+      transform: translateX(-50%);
+
+      background:
+              linear-gradient(
+                      90deg,
+                      #721010 0%,
+                      #b62222 18%,
+                      #e04a4a 48%,
+                      #ad1c1c 75%,
+                      #6b0c0c 100%
+              );
+
+      border-radius: 40px 40px 14px 14px;
+
+      border-bottom: 9px solid #5a0808;
+
+      box-shadow:
+              0 15px 20px rgba(0,0,0,0.4),
+              inset 8px 0 12px rgba(255,255,255,0.08),
+              inset -8px 0 12px rgba(0,0,0,0.18);
+
+      transition:
+              transform 0.25s ease,
+              filter 0.2s ease;
+
+      z-index: 3;
+    }
+
+    .cup::before {
+      content: "";
+
+      position: absolute;
+
+      top: 8px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 48px;
+      height: 14px;
+
+      border-radius: 50%;
+
+      background: rgba(255,255,255,0.12);
+    }
+
+    .cup::after {
+      content: "";
+
+      position: absolute;
+
+      left: -8px;
+      bottom: -11px;
+
+      width: 98px;
+      height: 20px;
+
+      border-radius: 50%;
+
+      background: #650b0b;
+
+      box-shadow:
+              0 4px 5px rgba(0,0,0,0.25);
+    }
+
+    .ball {
+      position: absolute;
+
+      left: 50%;
+      bottom: 4px;
+
+      width: 68px;
+      height: 68px;
+
+      transform:
+              translateX(-50%)
+              scale(0.8);
+
+      opacity: 0;
+
+      z-index: 2;
+
+      transition:
+              opacity 0.2s ease,
+              transform 0.25s ease;
+
+      pointer-events: none;
+    }
+
+    .ball img {
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+
+      pointer-events: none;
+      user-select: none;
+
+      filter:
+              drop-shadow(0 6px 6px rgba(0,0,0,0.5));
+    }
+
+    .cup-wrap.show-ball .ball {
+      opacity: 1;
+
+      transform:
+              translateX(-50%)
+              scale(1);
+    }
+
+    .cup-wrap.lift .cup {
+      transform:
+              translate(-50%, -70px);
+    }
+
+    .number {
+      position: absolute;
+
+      bottom: -24px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 30px;
+      height: 30px;
+
+      border-radius: 50%;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: #292929;
+
+      border: 1px solid #444;
+
+      font-size: 13px;
+
+      color: #aaa;
+    }
+
+    .number {
+      display: none;
+    }
+
+    .debug-mode .number {
+      display: flex;
+    }
+
+    button {
+      margin-top: 5px;
+
+      padding: 15px 28px;
+
+      border: 0;
+      border-radius: 12px;
+
+      background: #fff;
+      color: #111;
+
+      font-size: 17px;
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition:
+              transform 0.15s ease,
+              opacity 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: 0.45;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+
+    /* ======================================== */
+    /* АНИМАЦИЯ ПОД .GAME */
+    /* ======================================== */
+
+    .runner-area {
+      position: relative;
+
+      width: 100vw;
+      height: 550px;
+
+      overflow: hidden;
+
+      pointer-events: none;
+
+      opacity: 0;
+    }
+
+    .runner-area.running {
+      opacity: 1;
+    }
+
+    .runner-group {
+      position: absolute;
+
+      left: 0;
+      top: 50%;
+
+      display: flex;
+      align-items: center;
+
+      transform:
+              translate(100vw, -50%);
+
+      pointer-events: none;
+
+      will-change: transform;
+    }
+
+    .runner-gif {
+      display: block;
+
+      width: auto;
+      height: 430px;
+
+      object-fit: contain;
+
+      margin-bottom: -10px;
+
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .runner {
+      display: block;
+
+      width: auto;
+      height: 400px;
+
+      object-fit: contain;
+
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /*
+      ВАЖНО:
+      теперь анимация НЕ infinite.
+      Она проходит ровно 1 раз.
+    */
+
+    .runner-area.running .runner-group {
+      animation:
+              runRightToLeft 7s linear 1 forwards;
+    }
+
+    @keyframes runRightToLeft {
+      0% {
+        transform:
+                translate(
+                        calc(100vw + 120px),
+                        -50%
+                );
+      }
+
+      100% {
+        transform:
+                translate(
+                        -100%,
+                        -50%
+                );
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      h1 {
+        font-size: 27px;
+      }
+
+      .status {
+        font-size: 18px;
+      }
+
+      .game {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      .table {
+        height: 270px;
+        padding-top: 65px;
+      }
+
+      .runner-area {
+        height: 320px;
+      }
+
+      .runner-gif {
+        height: 90px;
+      }
+
+      .runner {
+        height: 230px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="game">
+
+  <h1 class="hero__title glitch" data-text="Найти свою потерянную головёшку">Найти свою потерянную головёшку</h1>
+
+  <div
+          class="status game-task__feedback"
+          id="status"
+  >
+  </div>
+
+  <div class="lives-box">
+
+    <div
+            class="lives"
+            id="lives"
+    >
+
+      <div class="life">❤️</div>
+      <div class="life">❤️</div>
+      <div class="life">❤️</div>
+
+    </div>
+
+  </div>
+
+  <div class="table">
+
+    <div
+            class="cups"
+            id="cups"
+    ></div>
+
+  </div>
+
+  <button class="btn btn--start" id="startBtn">
+    Пройти ловушку
+  </button>
+
+</div>
+
+
+<div
+        class="runner-area"
+        id="runnerArea"
+>
+
+  <div
+          class="runner-group"
+          id="runnerGroup"
+  >
+
+    <img
+            class="runner-gif"
+            src="uploads/ahaha.gif"
+            alt=""
+            draggable="false"
+    >
+
+    <img
+            class="runner"
+            src="uploads/tgpencil.png"
+            alt=""
+            draggable="false"
+    >
+
+  </div>
+
+</div>
+
+
+<script>
+
+  const CUPS_COUNT = 10;
+
+  const MAX_LIVES = 3;
+
+  const SHUFFLE_COUNT = 35;
+
+  const ROUND_1_SPEED = 160;
+  const ROUND_2_SPEED = 260;
+  const ROUND_3_SPEED = 500;
+
+  const BALL_IMAGE =
+          "uploads/face.png";
+
+
+  const cupsContainer =
+          document.getElementById(
+                  "cups"
+          );
+
+  const statusEl =
+          document.getElementById(
+                  "status"
+          );
+
+  const startBtn =
+          document.getElementById(
+                  "startBtn"
+          );
+
+  const livesContainer =
+          document.getElementById(
+                  "lives"
+          );
+
+  const runnerArea =
+          document.getElementById(
+                  "runnerArea"
+          );
+
+  const runnerGroup =
+          document.getElementById(
+                  "runnerGroup"
+          );
+
+
+  let gameActive =
+          false;
+
+  let ballCup =
+          null;
+
+  let lives =
+          MAX_LIVES;
+
+  let round =
+          1;
+
+
+  function sleep(ms) {
+
+    return new Promise(
+            resolve =>
+                    setTimeout(
+                            resolve,
+                            ms
+                    )
+    );
+
+  }
+
+
+  function randomInt(max) {
+
+    return Math.floor(
+            Math.random() * max
+    );
+
+  }
+
+
+  function createCups() {
+
+    cupsContainer.innerHTML =
+            "";
+
+    for (
+            let i = 0;
+            i < CUPS_COUNT;
+            i++
+    ) {
+
+      const wrap =
+              document.createElement(
+                      "div"
+              );
+
+      wrap.className =
+              "cup-wrap";
+
+      wrap.innerHTML = `
+
+        <div class="ball">
+
+          <img
+            src="${BALL_IMAGE}"
+            alt=""
+            draggable="false"
+          >
+
+        </div>
+
+        <div class="cup"></div>
+
+        <div class="number">
+          ${i + 1}
+        </div>
+
+      `;
+
+      wrap.addEventListener(
+              "click",
+              function () {
+
+                chooseCup(
+                        wrap
+                );
+
+              }
+      );
+
+      cupsContainer.appendChild(
+              wrap
+      );
+
+    }
+
+  }
+
+
+  function resetLives() {
+
+    lives =
+            MAX_LIVES;
+
+    const lifeElements =
+            [...livesContainer.children];
+
+    lifeElements.forEach(
+            life => {
+
+              life.classList.remove(
+                      "dead",
+                      "hit"
+              );
+
+            }
+    );
+
+  }
+
+
+  async function removeLife() {
+
+    const lifeElements =
+            [...livesContainer.children];
+
+    lives--;
+
+    const index =
+            lives;
+
+    const life =
+            lifeElements[index];
+
+    if (!life) {
+      return;
+    }
+
+    life.classList.add(
+            "hit"
+    );
+
+    await sleep(
+            200
+    );
+
+    life.classList.add(
+            "dead"
+    );
+
+    await sleep(
+            450
+    );
+
+    life.classList.remove(
+            "hit"
+    );
+
+  }
+
+
+  /* ======================================== */
+  /* НИЖНЯЯ АНИМАЦИЯ */
+  /* ======================================== */
+
+  function startRunner() {
+
+    /*
+      Сбрасываем класс,
+      чтобы анимацию можно было
+      запускать заново каждый раунд.
+    */
+
+    runnerArea.classList.remove(
+            "running"
+    );
+
+    /*
+      Форсируем перерисовку.
+    */
+
+    void runnerArea.offsetWidth;
+
+    /*
+      Запускаем 1 проход.
+    */
+
+    runnerArea.classList.add(
+            "running"
+    );
+
+  }
+
+
+  /*
+    Когда картинка сама полностью
+    закончила проход — скрываем область.
+  */
+
+  runnerGroup.addEventListener(
+          "animationend",
+          function () {
+
+            runnerArea.classList.remove(
+                    "running"
+            );
+
+          }
+  );
+
+
+  async function startNewGame() {
+
+    gameActive =
+            false;
+
+    round =
+            1;
+
+    runnerArea.classList.remove(
+            "running"
+    );
+
+    resetLives();
+
+    startBtn.disabled =
+            true;
+
+    startBtn.textContent =
+            "Ловушка запущена...";
+
+    statusEl.className =
+            "status";
+
+    createCups();
+
+    await startRound();
+
+  }
+
+
+  async function startRound() {
+
+    gameActive =
+            false;
+
+    startBtn.disabled =
+            true;
+
+    createCups();
+
+    const cups =
+            [...cupsContainer.children];
+
+    ballCup =
+            cups[
+                    randomInt(
+                            CUPS_COUNT
+                    )
+                    ];
+
+    statusEl.className =
+            "status";
+
+    statusEl.textContent =
+            `Раунд ${round}. Следи за напёрстками...`;
+
+    ballCup.classList.add(
+            "show-ball"
+    );
+
+    ballCup.classList.add(
+            "lift"
+    );
+
+    await sleep(
+            1000
+    );
+
+    ballCup.classList.remove(
+            "lift"
+    );
+
+    await sleep(
+            220
+    );
+
+    ballCup.classList.remove(
+            "show-ball"
+    );
+
+    statusEl.textContent =
+            `Раунд ${round}. Не моргай...`;
+
+    await sleep(
+            150
+    );
+
+
+    /*
+      ПРИ НАЧАЛЕ ПЕРЕМЕШИВАНИЯ
+      ЗАПУСКАЕМ КАРТИНКИ.
+    */
+
+    startRunner();
+
+    await shuffleCups();
+
+
+    statusEl.textContent =
+            "Где же это яйцо с глазами?";
+
+    gameActive =
+            true;
+
+  }
+
+
+  function getRoundSpeed() {
+
+    if (
+            round === 1
+    ) {
+
+      return ROUND_1_SPEED;
+
+    }
+
+    if (
+            round === 2
+    ) {
+
+      return ROUND_2_SPEED;
+
+    }
+
+    return ROUND_3_SPEED;
+
+  }
+
+
+  async function shuffleCups() {
+
+    const speed =
+            getRoundSpeed();
+
+    for (
+            let i = 0;
+            i < SHUFFLE_COUNT;
+            i++
+    ) {
+
+      const cups =
+              [...cupsContainer.children];
+
+      const firstIndex =
+              randomInt(
+                      CUPS_COUNT
+              );
+
+      let secondIndex;
+
+      do {
+
+        secondIndex =
+                randomInt(
+                        CUPS_COUNT
+                );
+
+      }
+      while (
+              secondIndex === firstIndex
+              );
+
+      const cupA =
+              cups[firstIndex];
+
+      const cupB =
+              cups[secondIndex];
+
+      await swapCups(
+              cupA,
+              cupB,
+              speed
+      );
+
+    }
+
+  }
+
+
+  async function swapCups(
+          cupA,
+          cupB,
+          duration
+  ) {
+
+    const rectA =
+            cupA.getBoundingClientRect();
+
+    const rectB =
+            cupB.getBoundingClientRect();
+
+    const dx =
+            rectB.left -
+            rectA.left;
+
+    const directionA =
+            dx > 0
+                    ? 1
+                    : -1;
+
+    const directionB =
+            -directionA;
+
+    cupA.style.zIndex =
+            "20";
+
+    cupB.style.zIndex =
+            "19";
+
+    cupA.style.transition =
+            `transform ${duration}ms cubic-bezier(.45,.05,.2,1)`;
+
+    cupB.style.transition =
+            `transform ${duration}ms cubic-bezier(.45,.05,.2,1)`;
+
+    cupA.style.transform = `
+      translate(
+        ${dx}px,
+        -50px
+      )
+      rotate(
+        ${directionA * 5}deg
+      )
+    `;
+
+    cupB.style.transform = `
+      translate(
+        ${-dx}px,
+        25px
+      )
+      rotate(
+        ${directionB * 5}deg
+      )
+    `;
+
+    await sleep(
+            duration
+    );
+
+    swapDomElements(
+            cupA,
+            cupB
+    );
+
+    cupA.style.transition =
+            "none";
+
+    cupB.style.transition =
+            "none";
+
+    cupA.style.transform =
+            "";
+
+    cupB.style.transform =
+            "";
+
+    cupA.offsetHeight;
+
+    cupA.style.zIndex =
+            "";
+
+    cupB.style.zIndex =
+            "";
+
+    await sleep(
+            10
+    );
+
+  }
+
+
+  function swapDomElements(
+          a,
+          b
+  ) {
+
+    if (
+            a === b
+    ) {
+
+      return;
+
+    }
+
+    const parent =
+            a.parentNode;
+
+    const placeholderA =
+            document.createElement(
+                    "div"
+            );
+
+    const placeholderB =
+            document.createElement(
+                    "div"
+            );
+
+    parent.replaceChild(
+            placeholderA,
+            a
+    );
+
+    parent.replaceChild(
+            placeholderB,
+            b
+    );
+
+    parent.replaceChild(
+            b,
+            placeholderA
+    );
+
+    parent.replaceChild(
+            a,
+            placeholderB
+    );
+
+  }
+
+
+  async function chooseCup(
+          selectedCup
+  ) {
+
+    if (
+            !gameActive
+    ) {
+
+      return;
+
+    }
+
+    gameActive =
+            false;
+
+    const cups =
+            [...cupsContainer.children];
+
+    cups.forEach(
+            cup => {
+
+              cup.classList.add(
+                      "disabled"
+              );
+
+            }
+    );
+
+    selectedCup.classList.add(
+            "lift"
+    );
+
+    await sleep(
+            280
+    );
+
+
+    if (
+            selectedCup === ballCup
+    ) {
+
+      selectedCup.classList.add(
+              "show-ball"
+      );
+
+      statusEl.className =
+              "status win";
+
+      statusEl.textContent =
+              "Точный ход. Ещё дышишь.";
+
+      startBtn.hidden =
+              true;
+
+      setTimeout(
+              function () {
+                window.location.href = 'index.html';
+              },
+              2000
+      );
+
+      return;
+
+    }
+
+
+    statusEl.className =
+            "status lose";
+
+    statusEl.textContent =
+            "Ошибка. Минус жизнь.";
+
+    await removeLife();
+
+    await sleep(
+            250
+    );
+
+    selectedCup.classList.remove(
+            "lift"
+    );
+
+    await sleep(
+            150
+    );
+
+    ballCup.classList.add(
+            "show-ball"
+    );
+
+    ballCup.classList.add(
+            "lift"
+    );
+
+    statusEl.textContent =
+            `Ловушка пустая. Осталось жизней: ${lives}`;
+
+    await sleep(
+            1100
+    );
+
+
+    if (
+            lives <= 0
+    ) {
+
+      statusEl.className =
+              "status lose";
+
+      statusEl.textContent =
+              "Жизни закончились. Хорошо что не на жопу играли.";
+
+      startBtn.hidden =
+              true;
+
+      setTimeout(
+              function () {
+                window.location.href = 'index.html';
+              },
+              2000
+      );
+
+      return;
+
+    }
+
+
+    round++;
+
+    await sleep(
+            300
+    );
+
+    await startRound();
+
+  }
+
+
+  startBtn.addEventListener(
+          "click",
+          startNewGame
+  );
+
+
+  createCups();
+
+</script>
+
+</body>
+</html>
