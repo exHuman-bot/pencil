@@ -2,6 +2,7 @@
   var block = document.getElementById('block');
   var horns = document.getElementById('horns');
   var floatImg = document.getElementById('float');
+  var floatImgLeft = document.getElementById('float-left');
   var status = document.getElementById('status');
   if (!block) return;
 
@@ -16,6 +17,26 @@
   var failed = false;
   var nextTimer = null;
   var failTimer = null;
+  var rightFloatDuration = 26;
+
+  function syncFloatTimings() {
+    var viewportWidth = window.innerWidth || document.documentElement.clientWidth || 0;
+    var rightDistance = viewportWidth * 0.6;
+    var leftDistance = viewportWidth * 1.6 - 1200;
+    var leftFloatDuration = rightFloatDuration;
+
+    if (rightDistance > 0 && leftDistance > 0) {
+      leftFloatDuration = rightFloatDuration * (leftDistance / rightDistance);
+    }
+
+    if (floatImg) {
+      floatImg.style.animationDuration = rightFloatDuration + 's';
+    }
+
+    if (floatImgLeft) {
+      floatImgLeft.style.animationDuration = leftFloatDuration + 's';
+    }
+  }
 
   function completeTask() {
     if (completed || failed) return;
@@ -84,5 +105,10 @@
   if (floatImg) {
     floatImg.addEventListener('animationend', failTask);
   }
+  if (floatImgLeft) {
+    floatImgLeft.addEventListener('animationend', failTask);
+  }
+  syncFloatTimings();
+  window.addEventListener('resize', syncFloatTimings);
   setTop(top);
 })();
