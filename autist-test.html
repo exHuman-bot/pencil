@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест: аутист ли вы?</title>
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    color: #eee;
+    font-family: Arial, sans-serif;
+  }
+  .card {
+    background: #1c1c1c;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  h1 {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+  }
+  button {
+    padding: 10px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    background: #4a90e2;
+    color: #fff;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #357abd;
+  }
+  #result {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    min-height: 28px;
+  }
+  .yes { color: #ff5555; }
+  .no { color: #55ff88; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Тест: аутист ли вы?</h1>
+    <input type="text" id="nameInput" placeholder="Введите ваше имя" />
+    <br>
+    <button onclick="checkResult()">Узнать результат</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkResult() {
+      const name = document.getElementById('nameInput').value.trim().toLowerCase();
+      const resultEl = document.getElementById('result');
+      if (!name) {
+        resultEl.textContent = 'Введите имя';
+        resultEl.className = '';
+        return;
+      }
+      if (name === 'артём' || name === 'артем') {
+        resultEl.textContent = 'Диагноз: аутист';
+        resultEl.className = 'yes';
+      } else {
+        resultEl.textContent = 'Диагноз: не аутист';
+        resultEl.className = 'no';
+      }
+    }
+
+    document.getElementById('nameInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') checkResult();
+    });
+  </script>
+</body>
+</html>
